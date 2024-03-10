@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>curso_Java_entrega1</name>
+	<comment>Clique aqui > [![](https://mermaid.ink/img/pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4)
+	</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>README.md</name>
+			<type>1</type>
+			<location>C:/Program Files/Java/projetos/ws-java/curso_Java_entrega1/.project</location>
+		</link>
+	</linkedResources>
+</projectDescription>
