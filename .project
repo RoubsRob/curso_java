@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>curso_Java_entrega1</name>
-	<comment>Clique aqui > [![](https://mermaid.ink/img/pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4)
+	<comment> A aplicação oferece as seguintes funcionalidades:
+(1) Cadastro de conta dos tipos poupança ou débito
+(2) Depósito
+(3) Saque
+(4) Alteração de limite (LIS da conta)
+(5) Transferência entre contas
+(6) Exportar histórico de transações
+(7) Saldo
+
+Restrições:
+	- Há restrição de horário para transferências entre contas: Não é possível realizar transferências entre 6PM e 6AM
+	- Não é possível transformar uma conta de poupança em débito e vice versa.
+	- O tipo de conta default é poupança
+	- O valor de limite da conta está relacionado ao quanto sua conta poderá ficar negativa. Lembre-se que o valor negativo é um valor que deve ser devolvido ao banco!
+Entradas:
+	- O nome de cliente deve ser uma string
+	- O número de agência deve ser 1 ou 2. Estamos trabalhando para expansão de agências!
+	- O número da conta é um número inteiro e será gerado automaticamente. Anote o número da sua conta e agência pois será necessário para realizar operações.
+O tipo da conta poderá ser 1 (poupança) ou 2 (débito).
+<br>Clique aqui para diagrama de classes> [![](https://mermaid.ink/img/pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNp9kDEOwjAMRa8SeQLRE2SFG7BmMY0LlhKnJM6Aqt6dQGGgIDxZ__0v2X-CPnkCC33AUg6M54zRiRPTZp9E0VizY1EjNVJOT2lFj5pZzkZZa8D8y-FTPQUyBYNPf3jgyEprw4PTmArrkt1sP2HBa6WfRDNKGSiT9IxPsXxZ0nL9W4cO2psR2bdOpofmQC8UyYFtq6cBa1AHTuZmxdryN-nBaq7UQR09Kr1aBDtgKDTfAZFydX4)
+
+Clique aqui para diagrama de sequência> [![](https://mermaid.ink/img/pako:eNq1lNFKwzAUhl8l5kpx8wEiDGTDKxGh4lVvDsnZFkhzanK6oWMv5O0eoS9m0lUHKnbI7EXawPfnfE0O2UhNBqWSEZ8b9BpnFhYBqtKL9DwEypPxZHI5Jc-BnMOghMe1yHM413m82MMH4ivfUfFmcQXG9JHrXwsYrClapn2R7-snftxHlZhh3e4yLQKCs69g6GzIaGkjU7CaOqUBmwhpa45SKTL5bxrId7ayfJzKPa1IuI7PyZPbcAAf5xhSz1jojOKQ0mMfad9y5nOb4LRiBTmrLUPoYu0u5370um28Zks-KlEH63laPA22Gq29IzCpQYWOq_w6FDntbyyQC3CGjuy7RAqoA0b0fzprOZIVhgqsSXfBJqdLyUussJQqfRqcQ-O4lKXfJhQapuLFa6k4NDiSTW2AP64OqebgIm7fARQQgY0?type=png)](https://mermaid.live/edit#pako:eNq1lNFKwzAUhl8l5kpx8wEiDGTDKxGh4lVvDsnZFkhzanK6oWMv5O0eoS9m0lUHKnbI7EXawPfnfE0O2UhNBqWSEZ8b9BpnFhYBqtKL9DwEypPxZHI5Jc-BnMOghMe1yHM413m82MMH4ivfUfFmcQXG9JHrXwsYrClapn2R7-snftxHlZhh3e4yLQKCs69g6GzIaGkjU7CaOqUBmwhpa45SKTL5bxrId7ayfJzKPa1IuI7PyZPbcAAf5xhSz1jojOKQ0mMfad9y5nOb4LRiBTmrLUPoYu0u5370um28Zks-KlEH63laPA22Gq29IzCpQYWOq_w6FDntbyyQC3CGjuy7RAqoA0b0fzprOZIVhgqsSXfBJqdLyUussJQqfRqcQ-O4lKXfJhQapuLFa6k4NDiSTW2AP64OqebgIm7fARQQgY0)
+
 	</comment>
 	<projects>
 	</projects>

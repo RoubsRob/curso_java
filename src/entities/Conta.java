@@ -4,12 +4,18 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+import entities.enums.TiposConta;
 
 public class Conta {
 	private int numeroConta;
+	private int numeroAgencia;
 	private String titularConta;
 	private double saldoConta;
 	private double limiteConta;
+	private TiposConta tipoConta;
 	
 	public Conta() {
 	}
@@ -21,16 +27,20 @@ public class Conta {
 		setLimiteConta(0);
 	}
 	*/
-	public Conta(int numeroConta, String titularConta) {
+	/*
+	public Conta(int numeroConta,int numeroAgencia, String titularConta) {
 		this.numeroConta = numeroConta;
+		this.numeroAgencia = numeroAgencia;
 		this.titularConta = titularConta;
 		depositoConta(0);
 		setLimiteConta(0);
-	}
-	public Conta(int numeroConta, String titularConta, double limiteConta) {
+	}*/
+	public Conta(int numeroConta,int numeroAgencia, String titularConta, double limiteConta,TiposConta tipoConta) {
 		this.numeroConta = numeroConta;
+		this.numeroAgencia = numeroAgencia;
 		this.titularConta = titularConta;
 		this.limiteConta = limiteConta;
+		this.tipoConta = tipoConta;
 		depositoConta(0);
 	}
 	public int getNumeroConta() {
@@ -39,6 +49,10 @@ public class Conta {
 	
 	public void setNumeroConta(int numeroConta) {
 		this.numeroConta = numeroConta;
+	}
+	
+	public int getnumeroAgencia() {
+		return numeroAgencia;
 	}
 
 	public String getTitularConta() {
@@ -53,8 +67,14 @@ public class Conta {
 	}
 
 	public void depositoConta(double deposito) {
-		saldoConta += deposito;
-		System.out.println("Valor depositado com sucesso!"+"\n");
+		if (saldoConta == 0) {
+			saldoConta += deposito;
+		}else {
+			saldoConta += deposito;
+			System.out.println("Valor depositado com sucesso!"+"\n");
+		}
+		
+		
 	}
 	
 	public void saqueConta(double saque) {

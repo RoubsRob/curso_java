@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import entities.Conta;
+import entities.enums.TiposConta;
 
 public class Program {
 
@@ -19,7 +20,8 @@ public class Program {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		List<Conta> contas = new ArrayList<>();
+		List<Conta> contasAg1 = new ArrayList<>();
+		List<Conta> contasAg2 = new ArrayList<>();
 		
 		List<String[]> historico = new ArrayList<>();
 
@@ -33,44 +35,59 @@ public class Program {
 		+"[7] Para verificar o saldo"+"\n"+"[8] Para encerrar o sistema");
 			opt2 = sc.nextInt();
 			switch (opt2) {
-			case 1://cadastro de conta			
-				Conta conta;
+			case 1://cadastro de conta		
 				
-				//System.out.println("Entre com o número da conta:");
-				//int numero = sc.nextInt();
+				
+				try{
+				Conta conta;
 				
 				System.out.println("Entre com o nome do titular da conta:");
 				sc.nextLine();
 				String nome = sc.nextLine();
 				
+				System.out.println("Entre com o numero da agência:");
+				int agencia = sc.nextInt();
+				
 				System.out.println("Entre com o valor de limite da conta:");
-				double limite = sc.nextDouble();			
-				/*				
-				System.out.println("Digite:"+"\n"+"[1] Para fazer um depósito"+"\n"+"[2] Para criar a conta sem depósito");
-				int opt = sc.nextInt();
+				double limite = sc.nextDouble();	
 				
-				if (opt == 1) {
-					System.out.println("Entre com o valor do depósito inicial:");
-					double deposito = sc.nextDouble();			
-					conta = new Conta(numero,nome,deposito);
-				}else {
-					conta = new Conta(numero,nome);
-				}*/
+				System.out.println("Entre com 1 para criar uma conta poupança ou 2 para conta de Débito:");
+				int tipoConta = sc.nextInt();
+				while (tipoConta != 1 && tipoConta != 2) {
+					System.out.println("Entre com 1 para criar uma conta poupança ou 2 para conta de Débito:");
+					tipoConta = sc.nextInt();
+				}
+				
+				TiposConta contaTipo = TiposConta.POUPANCA;
+				
+				if (tipoConta == 1) {
+					contaTipo = TiposConta.POUPANCA;
+				}else if (tipoConta == 2) {
+					contaTipo = TiposConta.DEBITO;
+				}
 						
-				conta = new Conta(contas.size()+1,nome,limite);
-				/*init teste array contas*/
-				contas.add(conta);
-				/*Fim teste array contas*/
+				if (agencia == 1) {
+					conta = new Conta(contasAg1.size()+1,agencia,nome,limite,contaTipo);					
+					contasAg1.add(conta);
+					historico.add(new String[]{ Functions.dataAgora()+" Conta criada! Cliente: "+conta.getTitularConta()+" Seu número de conta é "+contasAg1.size()+" Agência: "+agencia+"\n" });
+					System.out.println("Conta criada! Cliente: "+conta.getTitularConta()+" Seu número de conta é "+contasAg1.size()+" Agência: "+agencia+"\n");
+				}else if (agencia == 2) {
+					conta = new Conta(contasAg2.size()+1,agencia,nome,limite,contaTipo);					
+					contasAg2.add(conta);
+					historico.add(new String[]{ Functions.dataAgora()+" Conta criada! Cliente: "+" Seu número de conta é "+contasAg1.size()+" Agência: "+agencia+"\n" });
+					System.out.println("Conta criada! Cliente: "+conta.getTitularConta()+" Seu número de conta é "+contasAg1.size()+" Agência: "+agencia+"\n");				
+				}else {
+					System.out.println("Agencias suportadas: 1 e 2.");
+				}
+
+				}catch(Exception e) {System.out.println("Erro durante input. Verifique se os dados entrados estão corretos.");break;}
 				
-				System.out.println("total de contas:"+contas.size());
-				//System.out.println("Conta criada com sucesso!");
-				//System.out.println("Detalhes da conta:"+conta);
-				Date data = new Date();
-				Instant instant = data.toInstant() ;
-				ZoneId z = ZoneId.of("America/Sao_Paulo" ) ;
-				ZonedDateTime zdt = instant.atZone( z ) ;
 				
-				historico.add(new String[]{ zdt+"Conta criada! Cliente: "+nome+"\n" });
+				//Tentando componentizar
+				//Conta conta = Functions.criaConta(contas);
+				//contas.add(conta);
+				
+				//System.out.println("total de contas:"+contas.size());
 				
 				break;
 				
@@ -78,34 +95,62 @@ public class Program {
 				try {
 					System.out.println("Entre com número de conta para o depósito:");
 					int numContaDeposito = sc.nextInt();
-					Conta contaDeposito = contas.get(numContaDeposito-1);
-					System.out.println("Entre com valor para o depósito:");
-					double deposito = sc.nextDouble();
-					contaDeposito.depositoConta(deposito);
-					historico.add(new String[]{"Deposito realizado no valor de : "+deposito+"\n" });
+					
+					System.out.println("Entre com o numero da agência:");
+					//sc.nextInt();
+					int agencia = sc.nextInt();
+					
+					if (agencia == 1) {
+						Conta contaDeposito = contasAg1.get(numContaDeposito-1);
+						System.out.println("Entre com valor para o depósito:");
+						double deposito = sc.nextDouble();
+						contaDeposito.depositoConta(deposito);
+						historico.add(new String[]{Functions.dataAgora()+" Deposito realizado no valor de : "+deposito+"\n" });
+					}else if (agencia == 2) {
+						Conta contaDeposito = contasAg2.get(numContaDeposito-1);
+						System.out.println("Entre com valor para o depósito:");
+						double deposito = sc.nextDouble();
+						contaDeposito.depositoConta(deposito);
+						historico.add(new String[]{Functions.dataAgora()+" Deposito realizado no valor de : "+deposito+"\n" });
+					}else {
+						System.out.println("Agencias suportadas: 1 e 2.");
+					}
+					
 
 				}catch(IndexOutOfBoundsException e) {
 					System.out.println("Conta inválida!");
 					//System.out.println("Conta inválida!"+"\n"+"A partir do menu selecione uma operação novamente.");
 					break;
 				}
-
-				//System.out.println("Valor depositado com sucesso!"+"\n");
-				//System.out.println("Detalhes da conta:"+conta);
-				
-
-				
 				break;
 			case 3://saque de conta
 				try {
 					System.out.println("Entre com número de conta para o saque:");
 					int numContaSaque = sc.nextInt();
-					Conta contaSaque = contas.get(numContaSaque-1);			
-					System.out.println("Entre com valor para o saque:");
-					double saque = sc.nextDouble();
-					contaSaque.saqueConta(saque);
-					historico.add(new String[]{"Saque realizado no valor de : "+saque+"\n" });
+					
+					System.out.println("Entre com o numero da agência:");
+					//sc.nextInt();
+					int agencia = sc.nextInt();
+					
+					if (agencia == 1) {
+						Conta contaSaque = contasAg1.get(numContaSaque-1);			
+						System.out.println("Entre com valor para o saque:");
+						double saque = sc.nextDouble();
+						contaSaque.saqueConta(saque);
+						historico.add(new String[]{Functions.dataAgora()+" Saque realizado no valor de : "+saque+"\n" });
 
+					}else if (agencia == 2) {
+						Conta contaSaque = contasAg2.get(numContaSaque-1);			
+						System.out.println("Entre com valor para o saque:");
+						double saque = sc.nextDouble();
+						contaSaque.saqueConta(saque);
+						historico.add(new String[]{Functions.dataAgora()+" Saque realizado no valor de : "+saque+"\n" });
+
+					}else {
+						System.out.println("Agencias suportadas: 1 e 2.");
+					}
+					
+					
 				}catch(IndexOutOfBoundsException e) {
 					System.out.println("Conta inválida!");
 					break;
@@ -118,12 +163,31 @@ public class Program {
 				try {
 					System.out.println("Entre com número de conta para alterar limite:");
 					int numContaLimite = sc.nextInt();
-					Conta contaLimite = contas.get(numContaLimite-1);			
-					System.out.println("Entre com novo limite:");
-					double limiteNovo = sc.nextDouble();
-					contaLimite.setLimiteConta(limiteNovo);
-					System.out.println("O novo limite da conta é:"+contaLimite.getLimiteConta());
-					historico.add(new String[]{"Limite alterado para o valor de : "+limiteNovo+"\n" });
+					
+					System.out.println("Entre com o numero da agência:");
+					//sc.nextInt();
+					int agencia = sc.nextInt();
+					
+					if (agencia == 1) {
+						Conta contaLimite = contasAg1.get(numContaLimite-1);			
+						System.out.println("Entre com novo limite:");
+						double limiteNovo = sc.nextDouble();
+						contaLimite.setLimiteConta(limiteNovo);
+						System.out.println("O novo limite da conta é:"+contaLimite.getLimiteConta());
+						historico.add(new String[]{Functions.dataAgora()+" Limite alterado para o valor de : "+limiteNovo+"\n" });
+					}else if (agencia == 2) {
+						Conta contaLimite = contasAg2.get(numContaLimite-1);			
+						System.out.println("Entre com novo limite:");
+						double limiteNovo = sc.nextDouble();
+						contaLimite.setLimiteConta(limiteNovo);
+						System.out.println("O novo limite da conta é:"+contaLimite.getLimiteConta());
+						historico.add(new String[]{Functions.dataAgora()+" Limite alterado para o valor de : "+limiteNovo+"\n" });
+
+					}else {
+						System.out.println("Agencias suportadas: 1 e 2.");
+					}
+					
+					
 
 				}catch(IndexOutOfBoundsException e) {
 					System.out.println("Conta inválida!");
@@ -133,22 +197,48 @@ public class Program {
 			case 5://transferencia entre contas
 				System.out.println("Entre com número de conta de origem:");
 				int numContaOrigem = sc.nextInt();
-				Conta contaOrigem = contas.get(numContaOrigem-1);
-				System.out.println("Entre com número de conta de destino:");
-				int numContaDestino = sc.nextInt();
-				Conta contaDestino = contas.get(numContaDestino-1);
 				
-				System.out.println("Entre com valor para transferencia:");
-				double valorTransferencia = sc.nextDouble();
-				contaOrigem.transferenciaContas(valorTransferencia,contaDestino,contaOrigem);
-				System.out.println("Valor transferido com sucesso!"+"\n");
-				//System.out.println("Detalhes da conta:"+conta);
+				System.out.println("Entre com o numero da agência:");
+				//sc.nextInt();
+				int agencia = sc.nextInt();
 				
-				historico.add(new String[]{"Valor de : "+valorTransferencia+" transferido para a conta "+contaDestino+" de conta "+contaOrigem+"\n" });
+				if (agencia == 1) {
+					Conta contaOrigem = contasAg1.get(numContaOrigem-1);
+					System.out.println("Entre com número de conta de destino:");
+					int numContaDestino = sc.nextInt();
+					Conta contaDestino = contasAg1.get(numContaDestino-1);
+					
+					System.out.println("Entre com valor para transferencia:");
+					double valorTransferencia = sc.nextDouble();
+					contaOrigem.transferenciaContas(valorTransferencia,contaDestino,contaOrigem);
+					System.out.println("Valor transferido com sucesso!"+"\n");
+					//System.out.println("Detalhes da conta:"+conta);
+					
+					historico.add(new String[]{Functions.dataAgora()+"Valor de : "+valorTransferencia+" transferido para a conta "+contaDestino+" de conta "+contaOrigem+"\n" });
+					
+				}else if (agencia == 2) {
+					Conta contaOrigem = contasAg2.get(numContaOrigem-1);
+					System.out.println("Entre com número de conta de destino:");
+					int numContaDestino = sc.nextInt();
+					Conta contaDestino = contasAg2.get(numContaDestino-1);
+					
+					System.out.println("Entre com valor para transferencia:");
+					double valorTransferencia = sc.nextDouble();
+					contaOrigem.transferenciaContas(valorTransferencia,contaDestino,contaOrigem);
+					System.out.println("Valor transferido com sucesso!"+"\n");
+					//System.out.println("Detalhes da conta:"+conta);
+					
+					historico.add(new String[]{Functions.dataAgora()+"Valor de : "+valorTransferencia+" transferido para a conta "+contaDestino+" de conta "+contaOrigem+"\n" });
+					
+				}else {
+					System.out.println("Agencias suportadas: 1 e 2.");
+				}
+				
+				
 				break;
 			case 6:
 				Functions.printCSV(historico);
-				historico.add(new String[]{"Historico solicitado "+"\n" });
+				historico.add(new String[]{Functions.dataAgora()+" Historico solicitado "+"\n" });
 
 				//public void givenDataArray_whenConvertToCSV_thenOutputCreated() throws IOException {
 				
@@ -156,11 +246,28 @@ public class Program {
 			case 7:
 				System.out.println("Entre com número de conta para visualizar o saldo:");
 				int numContaSaldo = sc.nextInt();
-				Conta contaSaldo = contas.get(numContaSaldo-1);
-				//contaSaldo.getSaldoConta();
-				System.out.println("Valor em conta:"+contaSaldo.getSaldoConta()+"\n");
-				//System.out.println("Detalhes da conta:"+conta);
-				historico.add(new String[]{"Saldo visualizado "+"\n" });
+				
+				System.out.println("Entre com o numero da agência:");
+				//sc.nextInt();
+				int agenciaSaldo = sc.nextInt();
+				
+				if (agenciaSaldo == 1) {
+					Conta contaSaldo = contasAg1.get(numContaSaldo-1);
+					//contaSaldo.getSaldoConta();
+					System.out.println("Valor em conta:"+contaSaldo.getSaldoConta()+"\n");
+					//System.out.println("Detalhes da conta:"+conta);
+					historico.add(new String[]{Functions.dataAgora()+" Saldo visualizado "+"\n" });
+				}else if (agenciaSaldo == 2) {
+					Conta contaSaldo = contasAg2.get(numContaSaldo-1);
+					//contaSaldo.getSaldoConta();
+					System.out.println("Valor em conta:"+contaSaldo.getSaldoConta()+"\n");
+					//System.out.println("Detalhes da conta:"+conta);
+					historico.add(new String[]{Functions.dataAgora()+" Saldo visualizado "+"\n" });
+				}else {
+					System.out.println("Agencias suportadas: 1 e 2.");
+				}
+				
+				
 
 				break;
 			case 8:
